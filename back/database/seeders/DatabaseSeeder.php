@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             UserSeeder::class,
+            MateriaSeeder::class,
+            SemestreSeeder::class,
+            DocumentoSeeder::class,
+            RegistroSeeder::class,
         ]);
     }
 }

@@ -12,4 +12,5 @@ class Semestre extends Model
         'nombre',
         'materia_id',
     ];
+    public function documentos(){return $this->hasMany(Documento::class);}
 }

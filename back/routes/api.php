@@ -23,5 +23,9 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::post('me', [\App\Http\Controllers\UserController::class, 'me']);
     Route::post('logout', [\App\Http\Controllers\UserController::class, 'logout']);
     Route::apiResource('user', \App\Http\Controllers\UserController::class);
+    Route::apiResource('materia', \App\Http\Controllers\MateriaController::class);
+    Route::apiResource('semestre', \App\Http\Controllers\SemestreController::class);
+    Route::apiResource('documento', \App\Http\Controllers\DocumentoController::class);
+    Route::apiResource('registro', \App\Http\Controllers\RegistroController::class);
 });
 

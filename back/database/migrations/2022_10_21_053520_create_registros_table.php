@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('url');
-            $table->unsignedBigInteger('semestre_id');
-            $table->foreign('semestre_id')->references('id')->on('semestres');
+            $table->unsignedBigInteger('documento_id');
+            $table->foreign('documento_id')->references('id')->on('documentos');
             $table->timestamps();
         });
     }

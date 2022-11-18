@@ -12,4 +12,7 @@ class Materia extends Model
         'nombre',
         'user_id',
     ];
+    public function semestres(){
+        return $this->hasMany(Semestre::class)->with('documentos.registros');
+    }
 }

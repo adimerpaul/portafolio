@@ -9,4 +9,5 @@ class Documento extends Model
 {
     use HasFactory;
     protected $fillable = ['nombre','semestre_id'];
+    public function registros(){ return $this->hasMany(Registro::class);}
 }
