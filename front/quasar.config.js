@@ -82,7 +82,7 @@ module.exports = configure(function (ctx) {
       env: {
         API: ctx.dev
           ? 'http://localhost:8000/api/'
-          : 'https://prod.api.com/',
+          : 'https://bportafolio.siscenter.org/api/',
         API_FRONT: ctx.dev
           ? 'http://localhost:8080/'
           : 'https://prod.api.com/',
