@@ -199,7 +199,7 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(() => {
-        location.reload(true);
+        window.location.reload(true);
       })
     },
     logout(){
