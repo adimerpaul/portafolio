@@ -77,7 +77,7 @@
             <div class="col-9">
               <div class="text-h6 text-bold " >Portafolio</div>
               <div class="text-caption">
-                <q-badge>Virtual</q-badge> 1.48.4
+                <q-badge>Virtual</q-badge> 1.48.5
               </div>
             </div>
           </div>
@@ -199,9 +199,7 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(() => {
-        this.$forceUpdate();
-        window.open('https://portafolio.siscenter.org/', '_blank')
-        // window.location.reload(true);
+        window.location.href = window.location.href
       })
     },
     logout(){
