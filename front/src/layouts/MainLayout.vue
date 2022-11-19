@@ -76,7 +76,9 @@
             </div>
             <div class="col-9">
               <div class="text-h6 text-bold " >Portafolio</div>
-              <div class="text-caption">Virtual</div>
+              <div class="text-caption">
+                <q-badge>Virtual</q-badge>
+              </div>
             </div>
           </div>
         </q-item-label>
