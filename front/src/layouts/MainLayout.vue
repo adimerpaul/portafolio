@@ -221,7 +221,7 @@ export default {
           this.store.user={}
           this.store.negocio={}
           this.store.userChat={}
-          localStorage.removeItem('tokenmi')
+          localStorage.removeItem('tokenPort')
           this.store.isLoggedIn=false
           this.$router.push('/login')
           this.$q.loading.hide()
