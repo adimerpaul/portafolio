@@ -200,6 +200,7 @@ export default {
         persistent: true
       }).onOk(() => {
         window.location.href = window.location.href
+        window.location.replace(window.location.href)
       })
     },
     logout(){
