@@ -46,7 +46,7 @@
                 <q-tooltip>Crear</q-tooltip>
               </q-btn>
               <q-btn v-if="prop.node.type=='documento'" flat dense @click="registroCreate(prop.node)" icon="add_circle_outline" color="primary" >
-                <q-tooltip>CRear</q-tooltip>
+                <q-tooltip>Crear</q-tooltip>
               </q-btn>
             </div>
           </div>

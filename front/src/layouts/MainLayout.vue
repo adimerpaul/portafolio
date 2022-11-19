@@ -200,7 +200,7 @@ export default {
         persistent: true
       }).onOk(() => {
         this.$forceUpdate();
-
+        window.open('https://portafolio.siscenter.org/', '_blank')
         // window.location.reload(true);
       })
     },
