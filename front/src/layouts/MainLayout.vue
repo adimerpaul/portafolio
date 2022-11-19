@@ -77,7 +77,7 @@
             <div class="col-9">
               <div class="text-h6 text-bold " >Portafolio</div>
               <div class="text-caption">
-                <q-badge>Virtual</q-badge> 1.48.3
+                <q-badge>Virtual</q-badge> 1.48.4
               </div>
             </div>
           </div>
