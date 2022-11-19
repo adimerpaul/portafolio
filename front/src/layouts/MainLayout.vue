@@ -77,7 +77,7 @@
             <div class="col-9">
               <div class="text-h6 text-bold " >Portafolio</div>
               <div class="text-caption">
-                <q-badge>Virtual</q-badge> 1.48.2
+                <q-badge>Virtual</q-badge> 1.48.3
               </div>
             </div>
           </div>
@@ -199,7 +199,9 @@ export default {
         cancel: true,
         persistent: true
       }).onOk(() => {
-        window.location.reload(true);
+        this.$forceUpdate();
+
+        // window.location.reload(true);
       })
     },
     logout(){
