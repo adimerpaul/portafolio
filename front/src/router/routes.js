@@ -3,6 +3,7 @@ import IndexPage from "pages/IndexPage";
 import Login from "pages/Login";
 import Portafolio from "pages/Portafolio";
 import User from "pages/User";
+import Datos from "pages/Datos";
 
 const routes = [
   {
@@ -12,6 +13,7 @@ const routes = [
       { path: '', component: IndexPage,meta: {requiresAuth: true}},
       { path: 'portafolio', component: Portafolio,meta: {requiresAuth: true}},
       { path: 'user', component: User,meta: {requiresAuth: true}},
+      { path: 'datos', component: Datos,meta: {requiresAuth: true}},
     ]
   },
   {

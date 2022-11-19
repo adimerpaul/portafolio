@@ -10,6 +10,7 @@ class Registro extends Model
     use HasFactory;
     protected $fillable = [
         'nombre',
-        'semestre_id',
+        'url',
+        'documento_id',
     ];
 }

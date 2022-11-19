@@ -42,7 +42,7 @@
               </q-avatar>
               <q-menu>
                 <q-list style="min-width: 100px">
-                  <q-item clickable v-ripple>
+                  <q-item clickable v-ripple to="/datos">
                     <q-item-section avatar>
                       <q-icon color="primary" name="perm_contact_calendar" />
                     </q-item-section>
@@ -87,7 +87,7 @@
 
 <!--        <q-list bordered>-->
 <!--          <q-list>-->
-            <q-item clickable v-ripple to="/" exact active-class="bg-primary text-white">
+            <q-item clickable v-ripple to="/" exact active-class="bg-blue-grey-6  text-white">
               <q-item-section avatar><q-icon name="o_home" /></q-item-section>
               <q-item-section>
                 <q-item-label lines="1">Principal</q-item-label>
@@ -100,7 +100,7 @@
 <!--                <q-icon name="keyboard_arrow_down" />-->
 <!--              </q-item-section>-->
             </q-item>
-        <q-item clickable v-ripple to="/user" exact active-class="bg-primary text-white">
+        <q-item clickable v-ripple to="/user" v-if="store.user.id==1" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="o_people" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Usuarios</q-item-label>
@@ -113,7 +113,7 @@
           <!--                <q-icon name="keyboard_arrow_down" />-->
           <!--              </q-item-section>-->
         </q-item>
-        <q-item clickable v-ripple to="/portafolio" exact active-class="bg-primary text-white">
+        <q-item clickable v-ripple to="/portafolio" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="o_description" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Portafolio digital</q-item-label>
@@ -125,6 +125,20 @@
           <!--                </q-item-label>-->
           <!--                <q-icon name="keyboard_arrow_down" />-->
           <!--              </q-item-section>-->
+        </q-item>
+        <q-item clickable v-ripple to="/datos" exact active-class="bg-blue-grey-6  text-white">
+          <q-item-section avatar><q-icon name="o_face" /></q-item-section>
+          <q-item-section>
+            <q-item-label lines="1">Mis datos</q-item-label>
+<!--            <q-item-label caption>Docente</q-item-label>-->
+          </q-item-section>
+        </q-item>
+        <q-item clickable v-ripple @click="reload" exact active-class="bg-blue-grey-6  text-white">
+          <q-item-section avatar><q-icon name="refresh" /></q-item-section>
+          <q-item-section>
+            <q-item-label lines="1">Actualizar</q-item-label>
+            <!--            <q-item-label caption>Docente</q-item-label>-->
+          </q-item-section>
         </q-item>
 <!--          </q-list>-->
 <!--          <q-separator />-->
@@ -176,6 +190,16 @@ export default {
   created() {
   },
   methods: {
+    reload(){
+      this.$q.dialog({
+        title: 'Actualizar',
+        message: '¿Desea actualizar la información?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        location.reload(true);
+      })
+    },
     logout(){
       this.$q.dialog({
         message:'¿Quieres cerrar sesión?',

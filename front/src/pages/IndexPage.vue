@@ -1,17 +1,78 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
+  <q-page class="">
+    <div class="row">
+      <div class="col-12 col-sm-3 q-pa-md">
+        <q-card class="bg-green">
+          <q-card-section>
+            <div class="text-h6 text-white">Usuarios <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h2 text-white">{{datos.users}}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3 q-pa-md">
+        <q-card class="bg-red">
+          <q-card-section>
+            <div class="text-h6 text-white">Materias <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h2 text-white">{{datos.materias}}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3 q-pa-md">
+        <q-card class="bg-blue">
+          <q-card-section>
+            <div class="text-h6 text-white">Semestres <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h2 text-white">{{datos.semestres}}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3 q-pa-md">
+        <q-card class="bg-info">
+          <q-card-section>
+            <div class="text-h6 text-white">Documentos <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h2 text-white">{{datos.documentos}}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+      <div class="col-12 col-sm-3 q-pa-md">
+        <q-card class="bg-secondary">
+          <q-card-section>
+            <div class="text-h6 text-white">Registros <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
+          </q-card-section>
+          <q-card-section>
+            <div class="text-h2 text-white">{{datos.registros}}</div>
+          </q-card-section>
+        </q-card>
+      </div>
+    </div>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'IndexPage'
-})
+export default {
+  data () {
+    return {
+      datos: [],
+    }
+  },
+  created() {
+    this.actualizar();
+  },
+  methods: {
+    actualizar() {
+      this.$q.loading.show()
+      this.$api.get('totales').then((response) => {
+        this.datos = response.data
+        this.$q.loading.hide()
+      })
+    }
+  }
+}
 </script>

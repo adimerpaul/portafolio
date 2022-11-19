@@ -20,8 +20,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', [\App\Http\Controllers\UserController::class, 'login']);
 Route::group(['middleware'=>'auth:sanctum'],function (){
+    Route::post('upload', [\App\Http\Controllers\UploadController::class, 'upload']);
+
     Route::post('me', [\App\Http\Controllers\UserController::class, 'me']);
     Route::post('logout', [\App\Http\Controllers\UserController::class, 'logout']);
+    Route::get('totales', [\App\Http\Controllers\UserController::class, 'totales']);
+    Route::put('updatePassword/{user}', [\App\Http\Controllers\UserController::class, 'updatePassword']);
     Route::apiResource('user', \App\Http\Controllers\UserController::class);
     Route::apiResource('materia', \App\Http\Controllers\MateriaController::class);
     Route::apiResource('semestre', \App\Http\Controllers\SemestreController::class);

@@ -9,6 +9,22 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    public function totales(){
+        return [
+            'users' => User::count(),
+            'materias' => \App\Models\Materia::count(),
+            'semestres' => \App\Models\Semestre::count(),
+            'documentos' => \App\Models\Documento::count(),
+            'registros' => \App\Models\Registro::count(),
+        ];
+    }
+    public function updatePassword($user, Request $request)
+    {
+        $user = User::find($user);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return response()->json($user);
+    }
     public function login(Request $request){
         $request->validate([
             'email' => 'required|email',
@@ -63,6 +79,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $request['password']=Hash::make($request->password);
         return(User::create($request->all()));
     }
 
