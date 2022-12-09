@@ -142,21 +142,15 @@
           </q-item-section>
         </q-item>
 
-        <q-item clickable v-ripple to="/horario" exact active-class="bg-blue-grey-6  text-white">
-          <q-item-section avatar><q-icon name="face" /></q-item-section>
-          <q-item-section>
-            <q-item-label lines="1">Estudiantes</q-item-label>
-          </q-item-section>
-        </q-item>
 
-        <q-item clickable v-ripple to="/student" exact active-class="bg-blue-grey-6  text-white">
-          <q-item-section avatar><q-icon name="schedule" /></q-item-section>
-          <q-item-section>
-            <q-item-label lines="1">Estudiantes</q-item-label>
-          </q-item-section>
-        </q-item>
+<!--        <q-item clickable v-ripple to="/schedule" exact active-class="bg-blue-grey-6  text-white">-->
+<!--          <q-item-section avatar><q-icon name="schedule" /></q-item-section>-->
+<!--          <q-item-section>-->
+<!--            <q-item-label lines="1">Horarios</q-item-label>-->
+<!--          </q-item-section>-->
+<!--        </q-item>-->
 
-        <q-item clickable v-ripple to="/notas" exact active-class="bg-blue-grey-6  text-white">
+        <q-item clickable v-ripple to="/note" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="verified" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Notas</q-item-label>

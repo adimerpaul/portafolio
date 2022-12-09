@@ -15,11 +15,14 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('last');
-            $table->string('last');
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('code');
+            $table->date('birthday');
+            $table->string('phone');
+            $table->string('email');
+            $table->string('avatar')->nullable();
             $table->timestamps();
         });
     }

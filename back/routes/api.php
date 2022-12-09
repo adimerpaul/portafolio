@@ -31,5 +31,10 @@ Route::group(['middleware'=>'auth:sanctum'],function (){
     Route::apiResource('semestre', \App\Http\Controllers\SemestreController::class);
     Route::apiResource('documento', \App\Http\Controllers\DocumentoController::class);
     Route::apiResource('registro', \App\Http\Controllers\RegistroController::class);
+    Route::apiResource('student', \App\Http\Controllers\StudentController::class);
+    Route::apiResource('attendance', \App\Http\Controllers\AttendanceController::class);
+    Route::apiResource('record', \App\Http\Controllers\RecordController::class);
+    Route::apiResource('note', \App\Http\Controllers\NoteController::class);
+    Route::apiResource('schedule', \App\Http\Controllers\ScheduleController::class);
 });
 
