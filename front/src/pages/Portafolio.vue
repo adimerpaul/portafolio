@@ -1,9 +1,9 @@
 <template>
 <q-page>
   <div class="row">
-    <div class="col-6 col-sm-3 text-center">
-      <q-btn type="a" outline icon="add_to_drive" :loading="loading" color="primary" label="Ir a mi Drive" href="https://drive.google.com/drive/u/0/my-drive" target="_blank"  />
-    </div>
+<!--    <div class="col-6 col-sm-3 text-center">-->
+<!--      <q-btn type="a" outline icon="add_to_drive" :loading="loading" color="primary" label="Ir a mi Drive" href="https://drive.google.com/drive/u/0/my-drive" target="_blank"  />-->
+<!--    </div>-->
     <div class="col-6 col-sm-3 text-center">
       <q-btn @click="materiaCreate" :loading="loading" icon="o_menu_book" color="primary" label="Crear materia" />
     </div>
@@ -63,11 +63,31 @@
       <q-card-section class="q-pt-none">
         <q-form @submit="registroSave" @reset="registroDialog = false" class="q-gutter-md">
           <q-input outlined v-model="registro.nombre" label="Nombre" />
-          <q-input outlined v-model="registro.url" label="Url" />
+<!--          <q-input outlined v-model="registro.url" label="Url" />-->
+          <div class="flex  flex-center">
+            <q-uploader
+              @added="uploadFile"
+              auto-upload
+              max-files="1"
+              label="Subir archivo"
+              flat
+              bordered
+            />
+          </div>
           <q-btn type="submit" color="primary" label="Guardar" />
           <q-btn type="reset" color="primary" flat label="Cancelar" />
         </q-form>
       </q-card-section>
+    </q-card>
+  </q-dialog>
+  <q-dialog v-model="dialog" persistent>
+    <q-card>
+    <q-card-section class="row items-center q-pb-none">
+      <div class="text-h6">Subir archivo</div>
+    </q-card-section>
+    <q-card-section class="q-pt-none">
+      <div>{{percentage}} %</div>
+    </q-card-section>
     </q-card>
   </q-dialog>
 <!--  <pre>{{materias}}</pre>-->
@@ -88,21 +108,60 @@ export default {
       store:useCounterStore(),
       registroDialog: false,
       registroInsert: true,
+      percentage: 0,
+      dialog: false,
+      file:'',
+      url:process.env.API,
     }
   },
   created() {
     this.materiaGet()
   },
   methods: {
+    uploadFile (file) {
+      this.loading = true
+      this.dialog = true
+      const formData = new FormData()
+      formData.append('file', file[0])
+      this.$api.post('upload', formData, {
+        onUploadProgress: progressEvent => {
+          this.percentage = parseInt(Math.round((progressEvent.loaded * 100) / progressEvent.total))
+        }
+      }).then(response => {
+        this.file = response.data
+        this.loading = false
+      }).catch(error => {
+        console.log(error)
+        this.loading = false
+      }).finally(() => {
+        this.dialog = false
+      })
+    },
+    onRejected (rejectedEntries) {
+      this.$q.notify({
+        type: 'negative',
+        message: `${rejectedEntries.length} el archivo paso las restricciones de validación`
+      })
+    },
     registroSave(){
+      if (this.file==''){
+        this.$q.notify({
+          type: 'negative',
+          message: `Debe subir un archivo`
+        })
+        return
+      }
+      this.registro.url = this.file
       if(this.registroInsert){
         this.$api.post('registro',this.registro).then((response)=>{
           this.registroDialog = false
+          this.file=''
           this.materiaGet()
         })
       }else{
         this.$api.put('registro/'+this.registro.id,this.registro).then((response)=>{
           this.registroDialog = false
+          this.file=''
           this.materiaGet()
         })
       }
@@ -258,7 +317,7 @@ export default {
       })
     },
     openPage(url) {
-      window.open(url, '_blank')
+      window.open(`${this.url}../imagenes/${url}`, '_blank')
     },
     materiaGet(){
       this.loading = true

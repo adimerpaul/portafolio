@@ -10,7 +10,9 @@ class Schedule extends Model
     use HasFactory;
     protected $fillable=[
         'user_id',
-        'start',
-        'end',
+        'hora',
+        'dia',
+        'materia',
+        'sigla',
     ];
 }

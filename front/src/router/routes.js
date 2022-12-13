@@ -7,6 +7,7 @@ import Datos from "pages/Datos";
 import Student from "pages/Student";
 import Note from "pages/Note";
 import Asistencia from "pages/Asistencia";
+import Schedule from "pages/Schedule";
 
 const routes = [
   {
@@ -20,6 +21,7 @@ const routes = [
       { path: 'student', component: Student,meta: {requiresAuth: true}},
       { path: 'note', component: Note,meta: {requiresAuth: true}},
       { path: 'asistencia', component: Asistencia,meta: {requiresAuth: true}},
+      { path: 'schedule', component: Schedule,meta: {requiresAuth: true}},
     ]
   },
   {

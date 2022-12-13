@@ -16,8 +16,10 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->string('hora');
+            $table->string('dia');
+            $table->string('materia');
+            $table->string('sigla')->nullable();
             $table->timestamps();
         });
     }

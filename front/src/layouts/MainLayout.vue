@@ -141,29 +141,24 @@
             <q-item-label lines="1">Estudiantes</q-item-label>
           </q-item-section>
         </q-item>
-
-
-<!--        <q-item clickable v-ripple to="/schedule" exact active-class="bg-blue-grey-6  text-white">-->
-<!--          <q-item-section avatar><q-icon name="schedule" /></q-item-section>-->
-<!--          <q-item-section>-->
-<!--            <q-item-label lines="1">Horarios</q-item-label>-->
-<!--          </q-item-section>-->
-<!--        </q-item>-->
-
+        <q-item clickable v-ripple to="/schedule" exact active-class="bg-blue-grey-6  text-white">
+          <q-item-section avatar><q-icon name="schedule" /></q-item-section>
+          <q-item-section>
+            <q-item-label lines="1">Horarios</q-item-label>
+          </q-item-section>
+        </q-item>
         <q-item clickable v-ripple to="/note" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="verified" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Notas</q-item-label>
           </q-item-section>
         </q-item>
-
         <q-item clickable v-ripple to="/asistencia" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="checklist" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Asistencia</q-item-label>
           </q-item-section>
         </q-item>
-
 <!--          </q-list>-->
 <!--          <q-separator />-->
           <!--          <q-item-label header>Desconectados</q-item-label>-->
