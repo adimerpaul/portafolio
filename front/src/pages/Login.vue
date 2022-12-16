@@ -57,22 +57,22 @@
     <q-dialog v-model="dialogRegister" >
       <q-card>
         <q-card-section class="q-mb-none">
-          <div class="text-h6">Registrate</div>
+          <div class="text-h6">Inicio de session Administrador</div>
         </q-card-section>
         <q-card-section class="q-mt-none">
-          <q-form @submit.prevent="registerUser">
-            <q-input outlined v-model="user.name" label="Nombre" type="text" required />
-            <q-input outlined v-model="user.email" label="Email" type="email" required />
-            <q-input outlined v-model="user.password" label="Contraseña" :type="typePassword?'password':'text'" required >
+          <q-form @submit.prevent="login">
+<!--            <q-input outlined v-model="user.name" label="Nombre" type="text" required />-->
+            <q-input outlined v-model="email" label="Email" type="email" required />
+            <q-input outlined v-model="password" label="Contraseña" :type="typePassword?'password':'text'" required >
               <template v-slot:append>
                 <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
               </template>
             </q-input>
-            <q-input outlined v-model="user.password_confirmation" label="Confirmar Contraseña" :type="typePassword?'password':'text'" required >
-              <template v-slot:append>
-                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
-              </template>
-            </q-input>
+<!--            <q-input outlined v-model="user.password_confirmation" label="Confirmar Contraseña" :type="typePassword?'password':'text'" required >-->
+<!--              <template v-slot:append>-->
+<!--                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />-->
+<!--              </template>-->
+<!--            </q-input>-->
             <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Registrate" type="submit" no-caps/>
           </q-form>
         </q-card-section>
