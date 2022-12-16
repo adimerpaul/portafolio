@@ -3,8 +3,8 @@
     <q-table :rows="records" :columns="studentColums" :filter="search">
       <template v-slot:top-left>
         <q-toolbar>
-          <q-select dense outlined :options="materias" v-model="materia"  :loading="loading" label="Materia" />
-          <q-btn icon="search" color="primary" label="Consultar" no-caps @click="recordGet" :loading="loading" />
+          <q-select dense @update:model-value="recordGet" outlined :options="materias" v-model="materia"  :loading="loading" label="Materia" />
+<!--          <q-btn icon="search" color="primary" label="Consultar" no-caps @click="recordGet" :loading="loading" />-->
         </q-toolbar>
       </template>
       <template v-slot:top-right>
@@ -42,7 +42,7 @@
         </q-card-section>
         <q-card-section class="q-pt-none">
           <q-form @submit.prevent="noteCreate">
-            <q-input dense outlined v-model="descripcion" label="Descripción" required />
+            <q-select :options="['PRACTICA','EXPOCICION','EXAMENES']" dense outlined v-model="descripcion" label="Descripción" required />
             <q-markup-table dense>
               <thead>
               <tr>
@@ -111,7 +111,7 @@ export default {
         description: this.descripcion,
         records: this.records
       }).then(response => {
-        this.recordGet()
+        this.recordGet(this.materia)
         this.loading = false
         this.$q.notify({
           color: 'positive',
@@ -130,9 +130,9 @@ export default {
         })
       })
     },
-    recordGet(){
+    recordGet(materia){
       this.loading = true
-      this.$api.get(`record/${this.materia.id}`).then(res=>{
+      this.$api.get(`record/${materia.id}`).then(res=>{
         this.records = res.data
         this.loading = false
         this.studentColums=[
@@ -178,7 +178,7 @@ export default {
           student_id: this.student.id,
           materia_id: this.materia.id
         }).then(response => {
-          this.recordGet()
+          this.recordGet(this.materia)
           this.showAddUserDialog = false
           this.loading = false
         }).catch(error => {
@@ -216,7 +216,7 @@ export default {
       }).onOk(() => {
         // this.$q.loading.show()
         this.$api.delete('record/'+student.id).then(response => {
-          this.recordGet()
+          this.recordGet(this.materia)
         })
       })
     }
@@ -235,7 +235,7 @@ export default {
         this.students.push(student)
       })
       this.student = this.students[0]
-      this.recordGet()
+      this.recordGet(this.materia)
     })
     // this.recordGet()
   }

@@ -40,7 +40,7 @@
                   <!--                      <q-btn outline icon="fa-brands fa-facebook" color="primary" class="full-width "/>-->
                   <!--                    </div>-->
                   <div class="col-12 q-pt-md q-pl-xs">
-                    <q-btn outline  icon="fa-brands fa-google" color="primary" class="full-width "/>
+                    <q-btn size="22px" outline  label="Registrate" @click="dialogRegister=true" no-caps color="primary" class="full-width "/>
                   </div>
                 </div>
               </q-form>
@@ -54,6 +54,30 @@
       </div>
     </q-page>
         </q-page-container>
+    <q-dialog v-model="dialogRegister" >
+      <q-card>
+        <q-card-section class="q-mb-none">
+          <div class="text-h6">Registrate</div>
+        </q-card-section>
+        <q-card-section class="q-mt-none">
+          <q-form @submit.prevent="registerUser">
+            <q-input outlined v-model="user.name" label="Nombre" type="text" required />
+            <q-input outlined v-model="user.email" label="Email" type="email" required />
+            <q-input outlined v-model="user.password" label="Contraseña" :type="typePassword?'password':'text'" required >
+              <template v-slot:append>
+                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
+              </template>
+            </q-input>
+            <q-input outlined v-model="user.password_confirmation" label="Confirmar Contraseña" :type="typePassword?'password':'text'" required >
+              <template v-slot:append>
+                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
+              </template>
+            </q-input>
+            <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Registrate" type="submit" no-caps/>
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-layout>
 </template>
 
@@ -64,7 +88,14 @@ export default {
   name: `Login`,
   data () {
     return {
+      user: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      },
       email: '',
+      dialogRegister: false,
       password: '',
       remember:false,
       typePassword:true,
@@ -78,6 +109,32 @@ export default {
     }
   },
   methods:{
+    registerUser(){
+      this.loading=true
+      this.$api.post('register',this.user).then((res)=>{
+        this.loading=false
+        this.$q.notify({
+          message: 'Usuario registrado correctamente',
+          color: 'positive',
+          icon: 'check_circle',
+          position: 'top'
+        })
+        this.dialogRegister=false
+        this.$router.push('/')
+        this.store.user=res.data.user
+        this.store.isLoggedIn=true
+        this.$api.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
+        localStorage.setItem('tokenPort',res.data.token)
+      }).catch((error)=>{
+        this.loading=false
+        this.$q.notify({
+          message: error.response.data.message,
+          color: 'negative',
+          icon: 'error',
+          position: 'top'
+        })
+      })
+    },
     useAuthProvider (provider, proData) {
       const pro = proData
       const ProData = pro || Providers[provider]

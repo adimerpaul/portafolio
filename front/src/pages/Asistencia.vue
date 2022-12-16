@@ -3,8 +3,8 @@
     <q-table :rows="records" :columns="studentColums" :filter="search">
       <template v-slot:top-left>
         <q-toolbar>
-          <q-select dense outlined :options="materias" v-model="materia"  :loading="loading" label="Materia" />
-          <q-btn icon="search" color="primary" label="Consultar" no-caps @click="recordGet" :loading="loading" />
+          <q-select @update:model-value="recordGet" dense outlined :options="materias" v-model="materia"  :loading="loading" label="Materia" />
+<!--          <q-btn icon="search" color="primary" label="Consultar" no-caps @click="recordGet" :loading="loading" />-->
         </q-toolbar>
       </template>
       <template v-slot:top-right>
@@ -21,7 +21,7 @@
         </q-td>
       </template>
     </q-table>
-<!--    <pre>{{records}}</pre>-->q
+<!--    <pre>{{records}}</pre>-->
     <q-dialog v-model="showAddUserDialog" >
       <q-card style="width: 700px;max-width: 85vw">
         <q-card-section class="row items-center q-pb-none">
@@ -133,9 +133,9 @@ export default {
         })
       })
     },
-    recordGet(){
+    recordGet(materia){
       this.loading = true
-      this.$api.get(`record/${this.materia.id}`).then(res=>{
+      this.$api.get(`record/${materia.id}`).then(res=>{
         this.records = res.data
         this.loading = false
         this.studentColums=[
@@ -182,7 +182,7 @@ export default {
           student_id: this.student.id,
           materia_id: this.materia.id
         }).then(response => {
-          this.recordGet()
+          this.recordGet(this.materias)
           this.showAddUserDialog = false
           this.loading = false
         }).catch(error => {
@@ -220,7 +220,7 @@ export default {
       }).onOk(() => {
         // this.$q.loading.show()
         this.$api.delete('record/'+student.id).then(response => {
-          this.recordGet()
+          this.recordGet( this.materia)
         })
       })
     }
@@ -239,7 +239,7 @@ export default {
         this.students.push(student)
       })
       this.student = this.students[0]
-      this.recordGet()
+      this.recordGet(this.materia)
     })
     // this.recordGet()
   }

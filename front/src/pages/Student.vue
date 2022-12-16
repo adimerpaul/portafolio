@@ -23,7 +23,7 @@
           <q-form @submit.prevent="studentCreate">
             <q-input v-model="student.name" hint="" dense required outlined label="Nombre" />
             <q-input v-model="student.last" hint="" dense required outlined label="Apellido" />
-            <q-input v-model="student.code" hint="" dense required outlined label="Código" type="number" />
+            <q-input v-model="student.code" hint="" dense required outlined label="Código" />
             <q-input v-model="student.phone" hint="" dense required outlined label="Teléfono" type="number" />
             <q-input v-model="student.birthday" hint="" dense required outlined label="Fecha de Nacimiento" type="date" />
             <q-input v-model="student.email" hint="" dense required outlined label="Correo" type="email" />
