@@ -18,4 +18,7 @@ class Student extends Model
         'avatar',
         'user_id',
     ];
+    public function materias(){
+        return $this->belongsToMany(Materia::class);
+    }
 }

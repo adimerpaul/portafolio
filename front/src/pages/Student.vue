@@ -27,6 +27,7 @@
             <q-input v-model="student.phone" hint="" dense required outlined label="Teléfono" type="number" />
             <q-input v-model="student.birthday" hint="" dense required outlined label="Fecha de Nacimiento" type="date" />
             <q-input v-model="student.email" hint="" dense required outlined label="Correo" type="email" />
+            <q-select v-if="studentCrear" v-model="student.materias" hint="" dense required outlined label="Materias" :options="materias" />
             <q-btn :loading="loading" type="submit" color="primary" icon="add_circle_outline" :label="studentCrear?'Crear':'Actualizar'" class="full-width" />
           </q-form>
         </q-card-section>
@@ -65,6 +66,8 @@ export default {
         'REFRIGERIO',
         'ADMINISTRADOR',
       ],
+      materias:[],
+      materia:{},
       showAddUserDialog: false,
       showUpdateUserDialog: false,
       search: '',
@@ -119,11 +122,27 @@ export default {
       if (this.studentCrear){
         this.loading = true
         this.student.user_id = this.store.user.id
+        this.student.materia_id = this.student.materias.value
         this.$api.post('student', this.student).then(response => {
-          this.studentsGet()
-          this.showAddUserDialog = false
-          this.student = {}
-          this.loading = false
+          // this.studentsGet()
+          // this.showAddUserDialog = false
+          // this.student = {}
+          // this.loading = false
+          this.$api.post('record', {
+            student_id: response.data.id,
+            materia_id: this.student.materias.value,
+          }).then(response => {
+            this.studentsGet()
+            this.showAddUserDialog = false
+            this.student = {}
+            this.loading = false
+            this.$q.notify({
+              color: 'green-4',
+              textColor: 'white',
+              icon: 'check_circle',
+              message: 'Estudiante creado'
+            })
+          })
         }).catch(error => {
           this.loading = false
           this.$q.notify({
@@ -182,6 +201,15 @@ export default {
     }
   },
   created() {
+    this.$api.get('materia').then(res => {
+      res.data.forEach(materia => {
+        this.materias.push({
+          label: materia.nombre,
+          value: materia.id
+        })
+      })
+      this.materia = this.materias[0]
+    })
     this.studentsGet()
   }
 }

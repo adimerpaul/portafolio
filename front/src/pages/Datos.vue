@@ -26,7 +26,7 @@
               <q-input dense outlined v-model="store.user.metodologia" label="Metodología" hint="" required/>
             </div>
             <div class="col-12 col-sm-6">
-              <q-input dense outlined v-model="store.user.curriculum" label="Curriculum" hint="" required/>
+              <q-input dense type="file" outlined v-model="store.user.curriculum" label="" hint="" required/>
             </div>
             <div class="col-12 flex flex-center">
               <q-uploader

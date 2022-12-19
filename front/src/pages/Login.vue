@@ -40,7 +40,7 @@
                   <!--                      <q-btn outline icon="fa-brands fa-facebook" color="primary" class="full-width "/>-->
                   <!--                    </div>-->
                   <div class="col-12 q-pt-md q-pl-xs">
-                    <q-btn size="22px" outline  label="Registrate" @click="dialogRegister=true" no-caps color="primary" class="full-width "/>
+                    <q-btn size="22px" outline  label="Ingresar Administrador" @click="dialogRegister=true" no-caps color="primary" class="full-width "/>
                   </div>
                 </div>
               </q-form>
@@ -68,11 +68,11 @@
                 <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
               </template>
             </q-input>
-<!--            <q-input outlined v-model="user.password_confirmation" label="Confirmar Contraseña" :type="typePassword?'password':'text'" required >-->
-<!--              <template v-slot:append>-->
-<!--                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />-->
-<!--              </template>-->
-<!--            </q-input>-->
+            <q-input outlined v-model="user.password_confirmation" label="Clave Administrador" :type="typePassword?'password':'text'" required >
+              <template v-slot:append>
+                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
+              </template>
+            </q-input>
             <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Registrate" type="submit" no-caps/>
           </q-form>
         </q-card-section>
