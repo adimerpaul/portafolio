@@ -21,13 +21,13 @@
         </q-card-section>
         <q-card-section>
           <q-form @submit.prevent="studentCreate">
+            <q-select v-if="studentCrear" v-model="student.materias" hint="" dense required outlined label="Materias" :options="materias" />
             <q-input v-model="student.name" hint="" dense required outlined label="Nombre" />
             <q-input v-model="student.last" hint="" dense required outlined label="Apellido" />
             <q-input v-model="student.code" hint="" dense required outlined label="Código" />
             <q-input v-model="student.phone" hint="" dense required outlined label="Teléfono" type="number" />
             <q-input v-model="student.birthday" hint="" dense required outlined label="Fecha de Nacimiento" type="date" />
             <q-input v-model="student.email" hint="" dense required outlined label="Correo" type="email" />
-            <q-select v-if="studentCrear" v-model="student.materias" hint="" dense required outlined label="Materias" :options="materias" />
             <q-btn :loading="loading" type="submit" color="primary" icon="add_circle_outline" :label="studentCrear?'Crear':'Actualizar'" class="full-width" />
           </q-form>
         </q-card-section>

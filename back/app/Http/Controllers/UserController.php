@@ -9,6 +9,26 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    public function restorePass(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string|min:6|confirmed',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+
+        if (!$user) {
+            return response()->json([
+                'message' => 'No se encontró el usuario'
+            ], 404);
+        }
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return response()->json([
+            'message' => 'Contraseña actualizada correctamente'
+        ], 200);
+    }
     public function register(Request $request){
         $request->validate([
             'name' => 'required|string',

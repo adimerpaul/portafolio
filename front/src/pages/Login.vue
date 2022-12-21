@@ -31,7 +31,7 @@
 <!--                    <q-btn to="signup" size="22px" outline class="full-width bold" color="primary" label="Registrate" type="submit" no-caps />-->
                   </div>
                   <div class="col-12 text-center q-py-none">
-                    <a href="" class="text-blue-8 ">¿Olvidaste tu contraseña?</a>
+                    <a  @click="dialogRestore=true" class="text-blue-8 ">¿Olvidaste tu contraseña?</a>
                   </div>
                   <div class="col-12 text-center q-py-none text-caption">
                     <div class="linea"><span>O INICIAR SESIÓN CON</span></div>
@@ -47,7 +47,7 @@
             </q-card-section>
           </q-card>
           <div class="text-subtitle1 text-center text-caption q-pt-lg text-grey">AL INICIAR SESIÓN, USTED ACEPTA LOS
-            <a href="" class="text-blue-8 ">TÉRMINOS DEL SERVICIO</a> Y <a href="" class="text-blue-8 ">LA POLÍTICA DE PRIVACIDAD</a>
+            <a  class="text-blue-8 ">TÉRMINOS DEL SERVICIO</a> Y <a href="" class="text-blue-8 ">LA POLÍTICA DE PRIVACIDAD</a>
           </div>
         </div>
         <div class="col-1 col-sm-4"></div>
@@ -73,7 +73,31 @@
                 <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
               </template>
             </q-input>
-            <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Registrate" type="submit" no-caps/>
+            <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Inicio de session" type="submit" no-caps />
+          </q-form>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
+    <q-dialog v-model="dialogRestore" >
+      <q-card>
+        <q-card-section class="q-mb-none">
+          <div class="text-h6">Recuperara Congraseña</div>
+        </q-card-section>
+        <q-card-section class="q-mt-none">
+          <q-form @submit.prevent="restorePass">
+            <!--            <q-input outlined v-model="user.name" label="Nombre" type="text" required />-->
+            <q-input outlined v-model="email" label="Email" type="email" required />
+            <q-input outlined v-model="password" label="nueva Contraseña" :type="typePassword?'password':'text'" required >
+              <template v-slot:append>
+                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
+              </template>
+            </q-input>
+            <q-input outlined v-model="user.password_confirmation" label="Confirmar nueva Contraseña" :type="typePassword?'password':'text'" required >
+              <template v-slot:append>
+                <q-icon @click="typePassword=!typePassword" :name="typePassword?'visibility':'visibility_off'" />
+              </template>
+            </q-input>
+            <q-btn size="22px" :loading="loading" class="full-width bold" color="primary" label="Recuperar" type="submit" no-caps />
           </q-form>
         </q-card-section>
       </q-card>
@@ -88,6 +112,7 @@ export default {
   name: `Login`,
   data () {
     return {
+      dialogRestore:false,
       user: {
         name: '',
         email: '',
@@ -109,6 +134,31 @@ export default {
     }
   },
   methods:{
+    restorePass(){
+      this.loading=true
+      this.$api.post('restorePass',{
+        email:this.email,
+        password:this.password,
+        password_confirmation:this.user.password_confirmation
+      }).then(res=>{
+        this.loading=false
+        this.dialogRestore=false
+        this.$q.notify({
+          message: 'Se ha enviado un correo para recuperar su contraseña',
+          color: 'positive',
+          position: 'top',
+          timeout: 2500
+        })
+      }).catch(err=>{
+        this.loading=false
+        this.$q.notify({
+          message: 'Error al recuperar contraseña',
+          color: 'negative',
+          position: 'top',
+          timeout: 2500
+        })
+      })
+    },
     registerUser(){
       this.loading=true
       this.$api.post('register',this.user).then((res)=>{

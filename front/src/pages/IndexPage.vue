@@ -1,8 +1,8 @@
 <template>
   <q-page class="">
     <div class="row">
-      <div class="col-12 col-sm-3 q-pa-md">
-        <q-item to="/portafolio">
+      <div class="col-12 col-sm-3 q-pa-md" v-if="store.user.id=1">
+        <q-item to="/user">
         <q-card class="bg-green full-width">
           <q-card-section>
             <div class="text-h6 text-white">Usuarios <q-btn flat dense @click="actualizar" icon="refresh" /> </div>
@@ -13,7 +13,7 @@
         </q-card>
           </q-item>
       </div>
-      <div class="col-12 col-sm-3 q-pa-md" >
+      <div class="col-12 col-sm-3 q-pa-md">
         <q-item to="/portafolio">
           <q-card class="bg-red full-width" >
             <q-card-section >
@@ -67,10 +67,13 @@
 </template>
 
 <script>
+import {useCounterStore} from "stores/example-store";
+
 export default {
   data () {
     return {
       datos: [],
+      store: useCounterStore()
     }
   },
   created() {
