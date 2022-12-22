@@ -69,16 +69,16 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->with('permissions')->first();
-
-        if (! $user || ! Hash::check($request->password, $user->password)) {
+        if (!auth()->attempt($request->only('email', 'password'))) {
             throw ValidationException::withMessages([
-                'email' => ['Las credenciales proporcionadas son incorrectas'],
+                'email' => 'Credenciales incorrectas',
             ]);
         }
+        $user = User::where('email', $request->email)->first();
+        error_log($user);
         return response()->json([
-            'token'=>$user->createToken('web')->plainTextToken,
-            'user'=>$user
+            'user'=>$user,
+            'token'=>$user->createToken('web')->plainTextToken
         ],200);
     }
     public function logout(Request $request){
@@ -96,7 +96,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return User::with('permissions')->get();
+        return User::all();
     }
 
     /**
@@ -129,7 +129,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id);
     }
 
     /**

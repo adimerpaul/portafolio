@@ -231,11 +231,11 @@ export default {
           icon: 'check_circle',
           position: 'top'
         })
-        this.$router.push('/')
         this.store.user=res.data.user
         this.store.isLoggedIn=true
         this.$api.defaults.headers.common['Authorization'] = 'Bearer '+res.data.token
         localStorage.setItem('tokenPort',res.data.token)
+        this.$router.push('/')
       }).catch(error => {
         console.log(error)
         this.$q.notify({

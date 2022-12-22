@@ -4,6 +4,10 @@
 <!--    <div class="col-6 col-sm-3 text-center">-->
 <!--      <q-btn type="a" outline icon="add_to_drive" :loading="loading" color="primary" label="Ir a mi Drive" href="https://drive.google.com/drive/u/0/my-drive" target="_blank"  />-->
 <!--    </div>-->
+    <div class="col-12 col-sm-3 text-center" v-if="store.user.name=='admin'">
+      <q-select @update:model-value="materiaShow" dense outlined v-model="user" :loading="loading" :options="users" label="Selecciona un usuario" />
+      <pre>{{store.user}}</pre>
+    </div>
     <div class="col-6 col-sm-3 text-center">
       <q-btn @click="materiaCreate" :loading="loading" icon="o_menu_book" color="primary" label="Crear materia" />
     </div>
@@ -112,10 +116,20 @@ export default {
       dialog: false,
       file:'',
       url:process.env.API,
+      users:[],
+      user:{},
     }
   },
   created() {
-    this.materiaGet()
+    this.loading = true
+    this.$api.get('user').then(response => {
+      response.data.forEach((item) => {
+        this.users.push({label: item.name, value: item.id})
+      })
+      this.user = {label: this.store.user.name, value: this.store.user.id}
+      this.materiaGet(this.user.value)
+    })
+
   },
   methods: {
     uploadFile (file) {
@@ -156,13 +170,13 @@ export default {
         this.$api.post('registro',this.registro).then((response)=>{
           this.registroDialog = false
           this.file=''
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         })
       }else{
         this.$api.put('registro/'+this.registro.id,this.registro).then((response)=>{
           this.registroDialog = false
           this.file=''
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         })
       }
 
@@ -202,7 +216,7 @@ export default {
             color: 'positive',
             icon: 'check_circle'
           })
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         }).catch(error => {
           this.$q.notify({
             message: 'Error al crear documento',
@@ -228,7 +242,7 @@ export default {
         persistent: true
       }).onOk(data => {
         this.$api.post('semestre', {nombre: data, materia_id: node.id}).then((response) => {
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         })
       })
     },
@@ -249,7 +263,7 @@ export default {
               position: 'top',
               icon: 'check_circle'
             })
-            this.materiaGet()
+            this.materiaGet(this.user.value)
           })
           .catch(error => {
             this.loading = false
@@ -273,13 +287,16 @@ export default {
         persistent: true
       }).onOk(data => {
         this.$api.put(materia.type+'/'+materia.id, {nombre:data}).then(response => {
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         })
       }).onCancel(() => {
         console.log('Cancel')
       }).onDismiss(() => {
         console.log('Dismiss')
       })
+    },
+    materiaShow(user){
+      this.materiaGet(user.value)
     },
     materiaCreate() {
       this.$q.dialog({
@@ -304,7 +321,7 @@ export default {
             icon: 'check_circle',
             position: 'top'
           })
-          this.materiaGet()
+          this.materiaGet(this.user.value)
         }).catch(error => {
           this.loading = false
           this.$q.notify({
@@ -319,9 +336,9 @@ export default {
     openPage(url) {
       window.open(`${this.url}../imagenes/${url}`, '_blank')
     },
-    materiaGet(){
+    materiaGet(user_id) {
       this.loading = true
-      this.$api.get('materia').then((response) => {
+      this.$api.get('materia/'+user_id).then((response) => {
         this.loading = false
         this.materias = []
         response.data.forEach((materia) => {

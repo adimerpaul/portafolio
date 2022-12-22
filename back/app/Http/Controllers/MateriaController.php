@@ -12,7 +12,7 @@ class MateriaController extends Controller
     public function index(Request $request){return Materia::whereUser_id($request->user()->id)->with('semestres')->get();}
     public function create(){}
     public function store(Request $request){Materia::create($request->all());}
-    public function show(Materia $materia,Request $request){return Materia::whereUser_id($request->user()->id)->get();}
+    public function show($user_id){return Materia::whereUser_id($user_id)->with('semestres')->get();}
     public function edit(Materia $materia){}
     public function update(Request $request, $id){
         $material = Materia::find($id);
