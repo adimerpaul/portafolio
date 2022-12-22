@@ -6,7 +6,6 @@
 <!--    </div>-->
     <div class="col-12 col-sm-3 text-center" v-if="store.user.name=='admin'">
       <q-select @update:model-value="materiaShow" dense outlined v-model="user" :loading="loading" :options="users" label="Selecciona un usuario" />
-      <pre>{{store.user}}</pre>
     </div>
     <div class="col-6 col-sm-3 text-center">
       <q-btn @click="materiaCreate" :loading="loading" icon="o_menu_book" color="primary" label="Crear materia" />
