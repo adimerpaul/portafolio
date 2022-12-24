@@ -6,7 +6,10 @@
         <div class="col-1 col-sm-4"></div>
         <div class="col-10 col-sm-4">
           <div class="text-subtitle1 text-center q-pt-xs text-grey">CUENTA</div>
-          <div class="text-h2 text-center q-pa-xs text-black text-bold">Tu Cuenta</div>
+          <div class="flex flex-center">
+            <q-img  src="logo2.jpeg" width="120px"/>
+          </div>
+<!--          <div class="text-h2 text-center q-pa-xs text-black text-bold">Tu Cuenta</div>-->
           <q-card flat bordered>
             <q-card-section >
               <q-form class="q-pa-lg" @submit.prevent="login">

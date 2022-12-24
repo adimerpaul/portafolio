@@ -42,7 +42,7 @@
         </q-card-section>
         <q-card-section class="q-pt-none">
           <q-form @submit.prevent="noteCreate">
-            <q-select :options="['PRACTICA','EXPOCICION','EXAMENES']" dense outlined v-model="descripcion" label="Descripción" required />
+            <q-input dense outlined v-model="descripcion" label="Descripción" required />
             <q-markup-table dense>
               <thead>
               <tr>

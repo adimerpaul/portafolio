@@ -102,7 +102,7 @@
 <!--                <q-icon name="keyboard_arrow_down" />-->
 <!--              </q-item-section>-->
             </q-item>
-        <q-item clickable v-ripple to="/user" v-if="store.user.id==1" exact active-class="bg-blue-grey-6  text-white">
+        <q-item clickable v-ripple to="/user" v-if="store.user.name=='admin'" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="o_people" /></q-item-section>
           <q-item-section>
             <q-item-label lines="1">Usuarios</q-item-label>
@@ -138,7 +138,7 @@
         <q-item clickable v-ripple to="/student" exact active-class="bg-blue-grey-6  text-white">
           <q-item-section avatar><q-icon name="people" /></q-item-section>
           <q-item-section>
-            <q-item-label lines="1">Estudiantes</q-item-label>
+            <q-item-label lines="1">Lista de estudiantes</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/schedule" exact active-class="bg-blue-grey-6  text-white">

@@ -114,7 +114,7 @@ export default {
         description: this.descripcion,
         records: this.records
       }).then(response => {
-        this.recordGet()
+        this.recordGet(this.materia)
         this.loading = false
         this.$q.notify({
           color: 'positive',
@@ -123,17 +123,19 @@ export default {
           position: 'top'
         })
         this.noteDialogShow = false
-      }).catch(error => {
-        this.loading = false
-        this.$q.notify({
-          color: 'negative',
-          message: 'Error al registrar asistencia',
-          icon: 'warning',
-          position: 'top'
-        })
       })
+      //   .catch(error => {
+      //   this.loading = false
+      //   this.$q.notify({
+      //     color: 'negative',
+      //     message: error.response.data.message,
+      //     icon: 'warning',
+      //     position: 'top'
+      //   })
+      // })
     },
     recordGet(materia){
+      console.log(materia)
       this.loading = true
       this.$api.get(`record/${materia.id}`).then(res=>{
         this.records = res.data
