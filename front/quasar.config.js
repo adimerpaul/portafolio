@@ -168,9 +168,9 @@ module.exports = configure(function (ctx) {
 
 
       manifest: {
-        name: `Chat Social`,
-        short_name: `Chat Social`,
-        description: `Chat Social`,
+        name: `Portafolio digital utea`,
+        short_name: `Portafolio digital utea`,
+        description: `Portafolio digital utea`,
         display: 'standalone',
         orientation: 'portrait',
         background_color: '#ffffff',
