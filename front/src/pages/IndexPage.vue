@@ -1,7 +1,7 @@
 <template>
   <q-page class="">
     <div class="row">
-      <div class="col-12 col-sm-3 q-pa-md" v-if="store.user.id=1">
+      <div class="col-12 col-sm-3 q-pa-md" v-if="store.user.name=='admin'">
         <q-item to="/user">
         <q-card class="bg-green full-width">
           <q-card-section>
