@@ -40,6 +40,28 @@
         .project-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
         .project-meta span { border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 8px 14px; font-size: 13px; line-height: 1; }
         .skills .skill-inner img { width: 60px; height: 60px; object-fit: contain; display: block; margin: 0 auto 18px; }
+        .whatsapp-float {
+            position: fixed;
+            right: 26px;
+            bottom: 26px;
+            z-index: 9999;
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #25d366;
+            color: #fff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 34px;
+            box-shadow: 0 16px 32px rgba(37, 211, 102, 0.28);
+            transition: transform .2s ease, box-shadow .2s ease;
+        }
+        .whatsapp-float:hover {
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 20px 38px rgba(37, 211, 102, 0.34);
+        }
         @media (max-width: 767px) { .contact-cards { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -316,6 +338,10 @@
             </div>
         </div>
     </main>
+
+    <a class="whatsapp-float" href="https://wa.me/59160603027?text=Hola%20Adimer%2C%20quiero%20hablar%20contigo%20sobre%20un%20proyecto." target="_blank" rel="noopener noreferrer" aria-label="Contactar por WhatsApp" title="Escríbeme por WhatsApp">
+        <i class="lab la-whatsapp"></i>
+    </a>
 
     <script src="assets/js/jquery.js"></script>
     <script src="assets/js/bootstrap.bundle.min.js"></script>
